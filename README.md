@@ -1,22 +1,8 @@
-\# 🚀 Jenkins Master-Agent Setup (AWS)
-
-
-
-\## 📌 Project Overview
-
-
-
+\# 🚀 Jenkins Master-Agent Setup (AWS)-- Project Overview:
 This project demonstrates how to set up a \*\*Jenkins distributed architecture\*\* using a Controller (Master) and Agent (Slave) on AWS EC2 instances.
 
-
-
-\---
-
-
-
-\## 🧠 Architecture
-
-
+Architecture
+============
 
 [ Jenkins Controller (EC2 - t3.large) ]
                 |
@@ -29,12 +15,8 @@ This project demonstrates how to set up a \*\*Jenkins distributed architecture\*
 - Communication via SSH keys
 
 \---
-
-
-
-\## ⚙️ Technologies Used
-
-
+Technologies Used
+=================
 
 \* Jenkins
 
@@ -46,17 +28,10 @@ This project demonstrates how to set up a \*\*Jenkins distributed architecture\*
 
 \* Git
 
+Step-by-Step Setup
+==================
 
-
-\---
-
-
-
-\## 🔥 Step-by-Step Setup
-
-
-
-\### 1️⃣ Launch EC2 Instances
+1️⃣ Launch EC2 Instances
 
 
 
@@ -72,12 +47,6 @@ This project demonstrates how to set up a \*\*Jenkins distributed architecture\*
 
 &#x20; \* Port 8080 (Jenkins UI)
 
-
-
-\---
-
-
-
 \### 2️⃣ Install Java (Both Machines)
 
 
@@ -89,13 +58,6 @@ sudo apt update
 sudo apt install openjdk-21-jdk -y
 
 ```
-
-
-
-\---
-
-
-
 \### 3️⃣ Setup Jenkins (Controller)
 
 
@@ -107,91 +69,36 @@ wget https://get.jenkins.io/war-stable/latest/jenkins.war
 java -jar jenkins.war --httpPort=8080
 
 ```
-
-
-
 Access Jenkins:
-
-
-
-```
-
 http://<controller-ip>:8080
 
-```
-
-
-
-\---
-
-
-
 \### 4️⃣ Configure SSH (Controller → Agent)
+setup ssh keys:- goal: Controller should connect to Agent WITHOUT password
 
-
-
-Generate SSH key on Controller:
-
-
-
-```bash
-
+Login to controller: 
+bash:
+ssh -i keypair.pem ubuntu@<CONTROLLER_PUBLIC_IP>
+generate ssh keys:
 ssh-keygen
-
-```
-
-
-
+--> public and private keys
 Copy public key:
+cat ~/.ssh/id_ed25519.pub
 
+login to agent:
+ssh -i keypair.pem ubuntu@<AGENT_PUBLIC_IP>
 
+Add key on Agent:
+mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys
+-----
+Paste the key
+👉 Save (Ctrl + X → Y → Enter)
+-----
+Fix permissions: 
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
 
-```bash
-
-cat \~/.ssh/id\_ed25519.pub
-
-```
-
-
-
-Add key to Agent:
-
-
-
-```bash
-
-nano \~/.ssh/authorized\_keys
-
-```
-
-
-
-Fix permissions:
-
-
-
-```bash
-
-chmod 700 \~/.ssh
-
-chmod 600 \~/.ssh/authorized\_keys
-
-```
-
-
-
-Test connection:
-
-
-
-```bash
-
-ssh ubuntu@<agent-ip>
-
-```
-
-
-
+FINAL TEST (IMPORTANT): controller: ssh ubuntu@<AGENT_PUBLIC_IP>
 \---
 
 
@@ -346,10 +253,7 @@ Successfully implemented a \*\*Jenkins Master-Agent setup\*\* where:
 
 
 
-\## 👨‍💻 Author
-
-
-
+Author
 Mohit Verma
 
 
