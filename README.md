@@ -18,13 +18,15 @@ This project demonstrates how to set up a \*\*Jenkins distributed architecture\*
 
 
 
-Controller (Jenkins Server)
+[ Jenkins Controller (EC2 - t3.large) ]
+                |
+                |  SSH (Key-based authentication)
+                ↓
+[ Jenkins Agent (EC2 - t3.large) ]
 
-↓ (SSH)
-
-Agent (Build Executor)
-
-
+- Controller schedules jobs
+- Agent executes builds
+- Communication via SSH keys
 
 \---
 
