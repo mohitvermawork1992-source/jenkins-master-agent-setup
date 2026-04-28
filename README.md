@@ -1,5 +1,5 @@
-\# 🚀 Multi-OS Jenkins Setup (Ubuntu + Rocky Linux)-- Project Overview:
-This project demonstrates how to set up a \*\*Jenkins distributed architecture\*\* using a Controller (Master) and Agent (Slave) on AWS EC2 instances and Extended the Jenkins setup to support a multi-operating system architecture by integrating a Rocky Linux (CentOS-based) agent with an Ubuntu controller.
+\# 🚀 Multi-OS Jenkins Setup (Ubuntu + Rocky Linux)
+This project demonstrates the implementation of a distributed Jenkins architecture on AWS EC2, featuring an Ubuntu-based controller and a Rocky Linux (CentOS-based) agent. It showcases cross-platform job execution using secure SSH-based communication.
 
 Architecture
 ============
