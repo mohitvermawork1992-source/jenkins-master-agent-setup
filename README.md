@@ -1,5 +1,5 @@
-\# 🚀 Jenkins Master-Agent Setup (AWS)-- Project Overview:
-This project demonstrates how to set up a \*\*Jenkins distributed architecture\*\* using a Controller (Master) and Agent (Slave) on AWS EC2 instances.
+\# 🚀 Multi-OS Jenkins Setup (Ubuntu + Rocky Linux)-- Project Overview:
+This project demonstrates how to set up a \*\*Jenkins distributed architecture\*\* using a Controller (Master) and Agent (Slave) on AWS EC2 instances and Extended the Jenkins setup to support a multi-operating system architecture by integrating a Rocky Linux (CentOS-based) agent with an Ubuntu controller.
 
 Architecture
 ============
@@ -9,6 +9,7 @@ Architecture
                 |  SSH (Key-based authentication)
                 ↓
 [ Jenkins Agent (EC2 - t3.large) ]
+[ Jenkins Agent (Rocky Linux EC2) ]
 
 - Controller schedules jobs
 - Agent executes builds
@@ -24,6 +25,8 @@ Technologies Used
 
 \* Ubuntu Linux
 
+\* Rocky-9
+
 \* SSH
 
 \* Git
@@ -32,8 +35,6 @@ Step-by-Step Setup
 ==================
 
 1️⃣ Launch EC2 Instances
-
-
 
 \* Instance Type: t3.large
 
@@ -72,7 +73,21 @@ java -jar jenkins.war --httpPort=8080
 Access Jenkins:
 http://<controller-ip>:8080
 
-\### 4️⃣ Configure SSH (Controller → Agent)
+Step: 3.1: for centos:
+For centOS
+
+Implementation Steps
+====================
+
+Launched Rocky Linux EC2 instance (AWS Marketplace)
+Installed Java (OpenJDK 21) using dnf
+Configured passwordless SSH from controller → agent
+Added Rocky node in Jenkins using SSH launcher
+Verified agent connectivity and executor availability
+Executed job on Rocky agent using label restriction
+
+------->>>
+4️⃣ Configure SSH (Controller → Agent)
 setup ssh keys:- goal: Controller should connect to Agent WITHOUT password
 
 Login to controller: 
@@ -187,14 +202,6 @@ Running on agent
 
 ip-172-31-xxx-xxx
 
-```
-
-
-
-\---
-
-
-
 \## 🎯 Key Learnings
 
 
@@ -247,9 +254,8 @@ Successfully implemented a \*\*Jenkins Master-Agent setup\*\* where:
 
 \* Add multiple agents
 
+=======================================================
 
-
-\---
 
 
 
